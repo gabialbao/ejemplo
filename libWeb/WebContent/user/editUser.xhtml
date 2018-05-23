@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>EditarPerfilUser</title>
+
+	<style>
+body {
+	background-image:
+		url("http://4.bp.blogspot.com/-F7iUVcfw9vc/V6eLfFe6DlI/AAAAAAAAOaU/DFG7GNi0QQI7UAYTTw3BfM-zFIt45bHWACK4B/s1600/biblioteca_libros_prohibidos.jpg");
+	background-position: center center;
+	background-repeat: no repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
+#editar {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	width: 500px;
+	padding: 30px 30px 30px 30px;
+	margin-top: 10%;
+	background-color: #FFFFFF;
+}
+</style>
+
+
+</h:head>
+<h:body>
+
+	<div id="editar">
+
+		<center>
+			<h:outputText value=" "></h:outputText>
+			<p:graphicImage url="/img/logo.png" style="width:400px;" />
+			<h:outputText value=" "></h:outputText>
+		</center>
+
+		<center>
+			<h3>EDITAR PERFIL</h3>
+		</center>
+		<h:panelGrid columns="1">
+
+			<h:panelGrid columns="1">
+				<h:form>
+
+					<p:menubar>
+					<p:submenu label="Inicio ">
+						<p:menuitem value="Pagina Principal" action="/user/userPage"></p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Mi perfil">
+						<p:menuitem value="Editar Perfil" action="/user/editUser">
+						</p:menuitem>
+						
+					</p:submenu>
+					<p:submenu label="Libros actuales">
+						<p:menuitem value="Lista de libros que quiero"
+							action="/user/quieroActual">
+						</p:menuitem>
+						<p:menuitem value="Lista de libros que tengo"
+							action="/user/tengoActual">
+						</p:menuitem>
+					</p:submenu>
+					
+					
+					<p:submenu label="Agregar ">
+						<p:menuitem value="Libros que tengo " action="/user/agregarTengo"></p:menuitem>
+						<p:menuitem value="Libros que quiero "
+							action="/user/agregarQuiero"></p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Salida">
+						<p:menuitem value="Salir" action="#{userBean.salir}"></p:menuitem>
+					</p:submenu>
+				</p:menubar>
+
+				</h:form>
+
+				<h:form id="formulario">
+
+					<h:panelGrid columns="2">
+
+
+						<h:outputText value="Nickname nuevo:"></h:outputText>
+						<p:inputText disabled="true" value="#{userBean.usuario.userName}"></p:inputText>
+
+						<h:outputText value=" Nombre nuevo:"></h:outputText>
+						<p:inputText value="#{userBean.usuario.fullName}"></p:inputText>
+
+						<h:outputText value="Correo electronico nuevo:"></h:outputText>
+						<p:inputText value="#{userBean.usuario.emailAddress}"></p:inputText>
+
+						<h:outputText value="Telefono nuevo:"></h:outputText>
+						<p:inputText value="#{userBean.usuario.phoneNumber}"></p:inputText>
+
+
+						<p:commandButton value="Guardar Cambios"
+							actionListener="#{userBean.modificarUsuario}"></p:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</h:panelGrid>
+		</h:panelGrid>
+	</div>
+</h:body>
+
+</html>

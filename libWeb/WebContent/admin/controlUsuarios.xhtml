@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:view>
+		<h:head>
+			<title>Control de usuarios VistaADM</title>
+			<style>
+body {
+	background-image:
+		url("http://4.bp.blogspot.com/-F7iUVcfw9vc/V6eLfFe6DlI/AAAAAAAAOaU/DFG7GNi0QQI7UAYTTw3BfM-zFIt45bHWACK4B/s1600/biblioteca_libros_prohibidos.jpg");
+	background-position: center center;
+	background-repeat: no repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
+#inf {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	width: 1200px;
+	padding: 30px 30px 30px 30px;
+	margin-top: 10%;
+	background-color: #FFFFFF;
+}
+</style>
+		</h:head>
+		<h:body>
+
+			<div id="inf">
+				<h:form>
+
+					<h:panelGrid columns="1">
+
+						<h:outputText value=" "></h:outputText>
+						<p:graphicImage url="/img/logo.png" style="width:500px;" />
+						<h:outputText value=" "></h:outputText>
+
+						<p:menubar>
+							<p:submenu label="Menù Principal ">
+
+								<p:menuitem value="Editar Perfil" action="/admin/editAdm"></p:menuitem>
+								<p:menuitem value="Control de Usuarios"
+									action="/admin/controlUsuarios"></p:menuitem>
+								<p:menuitem value="Trazabilidad "
+									action="/admin/adminTrazabilidad"></p:menuitem>
+								<p:separator />
+								<p:menuitem value="Salir" action="#{userBean.salir}"></p:menuitem>
+							</p:submenu>
+						</p:menubar>
+						<h:panelGrid columns="1">
+
+							<p:dataTable value="#{userBean.ListarUsuarios()}" var="usuario"
+								width="300px" id="tablaUsuario"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+								paginator="true" rows="3" style="margin-bottom:20px">
+
+								<f:facet name="header">
+									<h:outputText value="Lista de Usuarios" />
+								</f:facet>
+								<p:column sortBy="#{usuario.id}">
+									<f:facet name="header">
+										<h:outputText value="Id" />
+									</f:facet>
+									<h:outputText value="#{usuario.id}" />
+								</p:column>
+								<p:column sortBy="#{usuario.userName}">
+									<f:facet name="header">
+										<h:outputText value="NickName" />
+									</f:facet>
+									<h:outputText value="#{usuario.userName}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Contrasena" />
+									</f:facet>
+									<h:outputText value="*******" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Nombre completo" />
+									</f:facet>
+									<h:outputText value="#{usuario.fullName}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="E-mail" />
+									</f:facet>
+									<h:outputText value="#{usuario.emailAddress}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Numero telefonico" />
+									</f:facet>
+									<h:outputText value="#{usuario.phoneNumber}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Fecha ultima contrasena" />
+									</f:facet>
+									<h:outputText value="#{usuario.dateLastPassword}" />
+								</p:column>
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Tipo de Usuario" />
+									</f:facet>
+									<h:outputText value="#{usuario.userType}" />
+								</p:column>
+
+
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Estado" />
+									</f:facet>
+									<h:outputText value="#{usuario.active}" />
+								</p:column>
+
+
+								<p:column>
+									<f:facet name="header">
+										<h:outputText value="Funcion" />
+									</f:facet>
+									<p:commandButton icon="ui-icon ui-icon-locked"
+										action="#{userBean.bloquearUsuario}" update="tablaUsuario">
+										<f:setPropertyActionListener value="#{usuario}"
+											target="#{userBean.usuarioSeleccionado}"></f:setPropertyActionListener>
+									</p:commandButton>
+									<p:commandButton icon="ui-icon ui-icon-unlocked"
+										action="#{userBean.desbloquearUsuario}" update="tablaUsuario">
+										<f:setPropertyActionListener value="#{usuario}"
+											target="#{userBean.usuarioSeleccionado}"></f:setPropertyActionListener>
+									</p:commandButton>
+								</p:column>
+
+							</p:dataTable>
+							<h:commandLink id="pdf" value="Exportar a PDF">
+								<p:dataExporter type="pdf" target="tablaUsuario"
+									fileName="Control de usuarios"
+									preProcessor="#{userBean.preProcessPDF}"></p:dataExporter>
+							</h:commandLink>
+
+							<h:commandLink id="excel" value="Exportar a Excel">
+								<p:dataExporter type="xls" target="tablaUsuario"
+									fileName="Control de usuarios"
+									postProcessor="#{userBean.postProcessXLS}"></p:dataExporter>
+							</h:commandLink>
+
+						</h:panelGrid>
+					</h:panelGrid>
+				</h:form>
+			</div>
+
+		</h:body>
+	</f:view>
+</ui:composition>

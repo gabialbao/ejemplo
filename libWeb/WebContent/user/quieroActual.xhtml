@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Lista libros que quiero Usuario</title>
+
+	<style>
+body {
+	background-image:
+		url("http://4.bp.blogspot.com/-F7iUVcfw9vc/V6eLfFe6DlI/AAAAAAAAOaU/DFG7GNi0QQI7UAYTTw3BfM-zFIt45bHWACK4B/s1600/biblioteca_libros_prohibidos.jpg");
+	background-position: center center;
+	background-repeat: no repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
+#admP {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	width: 1000px;
+	padding: 30px 30px 30px 30px;
+	margin-top: 10%;
+	background-color: #FFFFFF;
+}
+</style>
+
+</h:head>
+<h:body>
+	<div id="admP">
+		<h:form>
+			<h:panelGrid columns="1">
+				<h:panelGrid columns="2">
+					<p:outputLabel>
+						<p:graphicImage url="/img/logoPeq.PNG" width="" height="140" />
+					</p:outputLabel>
+					<h3>LISTA DE LIBROS QUE QUIERO</h3>
+					</h:panelGrid>
+					<p:menubar>
+					<p:submenu label="Inicio ">
+						<p:menuitem value="Pagina Principal" action="/user/userPage"></p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Mi perfil">
+						<p:menuitem value="Editar Perfil" action="/user/editUser">
+						</p:menuitem>
+						
+					</p:submenu>
+					<p:submenu label="Libros actuales">
+						<p:menuitem value="Lista de libros que quiero"
+							action="/user/quieroActual">
+						</p:menuitem>
+						<p:menuitem value="Lista de libros que tengo"
+							action="/user/tengoActual">
+						</p:menuitem>
+					</p:submenu>
+					
+					
+					<p:submenu label="Agregar ">
+						<p:menuitem value="Libros que tengo " action="/user/agregarTengo"></p:menuitem>
+						<p:menuitem value="Libros que quiero "
+							action="/user/agregarQuiero"></p:menuitem>
+					</p:submenu>
+
+					<p:submenu label="Salida">
+						<p:menuitem value="Salir" action="#{userBean.salir}"></p:menuitem>
+					</p:submenu>
+				</p:menubar>
+						<p:dataTable value="#{userBean.listarLeftActual()}" var="book"
+						width="300px" id="tablaLibros"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+						paginator="true" rows="3" style="margin-bottom:20px">
+
+						<f:facet name="header">
+							<h:outputText value="Lista de Libros que quiero" />
+						</f:facet>
+						<p:column sortBy="#{book.id}">
+							<f:facet name="header">
+								<h:outputText value="Id" />
+							</f:facet>
+							<h:outputText value="#{book.id}" />
+						</p:column>
+						<p:column sortBy="#{book.name}">
+							<f:facet name="header">
+								<h:outputText value="Título" />
+							</f:facet>
+							<h:outputText value="#{book.name}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Autor" />
+							</f:facet>
+							<h:outputText value="#{book.author}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Edición" />
+							</f:facet>
+							<h:outputText value="#{book.edition}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Editorial" />
+							</f:facet>
+							<h:outputText value="#{book.editorial}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Año de publicación" />
+							</f:facet>
+							<h:outputText value="#{book.date}" />
+						</p:column>
+
+						<p:column>
+
+							<f:facet name="header">
+								<h:outputText value="Funciones" />
+							</f:facet>
+
+
+							<p:commandButton value="Modificar"
+								icon="ui-icon ui-icon-mail-closed"
+								action="#{userBean.desbloquearUsuario}" update="tablaLibros">
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{userBean.comunicarporCorreo}"></f:setPropertyActionListener>
+							</p:commandButton>
+
+							<p:commandButton value="Eliminar" icon="ui-icon ui-icon-person"
+								action="#{userBean.eliminarQuiero}" update="tablaLibros">
+								<f:setPropertyActionListener value="#{Miss}"
+									target="#{userBean.missSeleccionado}"></f:setPropertyActionListener>
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+					
+					
+				
+				</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>

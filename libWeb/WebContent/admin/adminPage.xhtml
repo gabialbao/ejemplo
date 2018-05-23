@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>Página Principal ADM</title>
+
+	<style>
+body {
+	background-image:
+		url("http://4.bp.blogspot.com/-F7iUVcfw9vc/V6eLfFe6DlI/AAAAAAAAOaU/DFG7GNi0QQI7UAYTTw3BfM-zFIt45bHWACK4B/s1600/biblioteca_libros_prohibidos.jpg");
+	background-position: center center;
+	background-repeat: no repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
+#admP {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	width: 700px;
+	padding: 30px 30px 30px 30px;
+	margin-top: 15%;
+	background-color: #FFFFFF;
+}
+</style>
+
+</h:head>
+<h:body>
+	<div id="admP">
+		<h:form>
+			<h:panelGrid columns="1">
+
+				<p:menubar>
+					<p:submenu label="Menù Principal ">
+
+						<p:menuitem value="Editar Perfil" action="/admin/editAdm"></p:menuitem>
+						<p:menuitem value="Control de Usuarios"
+							action="/admin/controlUsuarios"></p:menuitem>
+						<p:menuitem value="Trazabilidad "
+							action="/admin/adminTrazabilidad"></p:menuitem>
+						<p:separator />
+						<p:menuitem value="Salir" action="#{userBean.salir}"></p:menuitem>
+					</p:submenu>
+				</p:menubar>
+
+
+
+
+				<h:panelGrid columns="2">
+					<p:outputLabel>
+						<p:graphicImage url="/img/logoPeq.PNG" width="" height="140" />
+					</p:outputLabel>
+
+					<h1>Bienvenido querido usuario.Esperamos que tenga una grata
+						experiencia</h1>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>

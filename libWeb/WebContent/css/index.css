@@ -1,0 +1,9 @@
+#principal {
+	width: 1024px;
+	margin: 0 auto;
+}
+#cuadro {
+	margin: 20px auto;
+	width: 40% !important;
+	text-align: center;
+}

@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Trazabilidad de usuarios VistaADM</title>
+	<style>
+body {
+	background-image:
+		url("http://4.bp.blogspot.com/-F7iUVcfw9vc/V6eLfFe6DlI/AAAAAAAAOaU/DFG7GNi0QQI7UAYTTw3BfM-zFIt45bHWACK4B/s1600/biblioteca_libros_prohibidos.jpg");
+	background-position: center center;
+	background-repeat: no repeat;
+	background-size: cover;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
+#inf {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	width: 1200px;
+	padding: 30px 30px 30px 30px;
+	margin-top: 10%;
+	background-color: #FFFFFF;
+	border-radius: 20px 20px 20px 20px;
+}
+</style>
+</h:head>
+<h:body>
+	<div id="inf">
+		<h:form>
+			<h:panelGrid columns="1">
+				<h:outputText value=" "></h:outputText>
+				<p:graphicImage url="/img/logo.png" style="width:500px;" />
+				<h:outputText value=" "></h:outputText>
+				<p:menubar>
+					<p:submenu label="Menù Principal ">
+
+						<p:menuitem value="Editar Perfil" action="/admin/editAdm"></p:menuitem>
+						<p:menuitem value="Control de Usuarios"
+							action="/admin/controlUsuarios"></p:menuitem>
+						<p:menuitem value="Trazabilidad "
+							action="/admin/adminTrazabilidad"></p:menuitem>
+						<p:separator />
+						<p:menuitem value="Salir" action="#{userBean.salir}"></p:menuitem>
+					</p:submenu>
+				</p:menubar>
+
+
+
+
+
+				<p:dataTable value="#{userBean.ListarAuditoria()}" var="audi"
+					width="300px" id="control"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+					paginator="true" rows="3" style="margin-bottom:20px">
+					<f:facet name="header">
+						<h:outputText value="Trazabilidad" />
+					</f:facet>
+
+
+					<p:column sortBy="#{audi.id}">
+						<f:facet name="header">
+							<h:outputText value="Id" />
+						</f:facet>
+						<h:outputText value="#{audi.id}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Operacion Realizada" />
+						</f:facet>
+						<h:outputText value="#{audi.operation}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre usuario" />
+						</f:facet>
+						<h:outputText action="#{userBean.nombreSegunID}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nombre de la tabla" />
+						</f:facet>
+						<h:outputText value="#{audi.tableName}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID usuario" />
+						</f:facet>
+						<h:outputText value="#{audi.userId} " />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="IP" />
+						</f:facet>
+						<h:outputText value="#{audi.ipAddress} " />
+					</p:column>
+
+				</p:dataTable>
+				<h:panelGrid columns="1">
+					<h:commandLink id="pdf" value="Exportar a PDF">
+						<p:dataExporter type="pdf" target="control"
+							fileName="ControlDeUsusarios"
+							preProcessor="#{userBean.preProcessPDF}"></p:dataExporter>
+					</h:commandLink>
+					<h:commandLink id="excel" value="Exportar a Excel">
+						<p:dataExporter type="xls" target="control"
+							fileName="Trazabilidad"
+							postProcessor="#{userBean.postProcessXLS}"></p:dataExporter>
+					</h:commandLink>
+
+
+
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+
+</html>
